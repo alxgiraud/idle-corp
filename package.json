@@ -1,0 +1,24 @@
+{
+  "name": "idle-corporate",
+  "version": "1.0.0",
+  "description": "Idle game project.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alxgiraud/idle-corporate.git"
+  },
+  "author": "Alexandre Giraud",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alxgiraud/idle-corporate/issues"
+  },
+  "homepage": "https://github.com/alxgiraud/idle-corporate",
+  "dependencies": {
+    "express": "^4.13.3"
+  },
+  "devDependencies": {}
+}
