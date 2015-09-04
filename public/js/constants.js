@@ -1,3 +1,4 @@
-var metaConstants =  {
-    TIME_INTERVAL: 100
+var gameConstants =  {
+    TIME_INTERVAL: 100,
+    AUTOSAVE_INTERVAL: 10000
 };
