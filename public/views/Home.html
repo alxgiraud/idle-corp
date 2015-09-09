@@ -1,1 +1,18 @@
-{{i}}
+<ul>
+    <li>{{ corporation.money }} </li>
+    <li>{{ corporation.stock }}</li>
+</ul>
+<ul ng-repeat="job in corporation.jobs">
+    <li>{{ job.title }}</li>
+    <li>Quantity: {{ job.quantity }}</li>
+    <li>Cost: {{ job.getCost() }}</li>
+</ul>
+<div ng-repeat="job in corporation.jobs">
+    <button ng-click='hire(job.title)' class="btn btn-default">
+        Hire {{ job.title }}
+    </button>
+</div>
+<br />
+<button ng-click='dumpCorp()' class="btn btn-default">
+    Dump console
+</button>

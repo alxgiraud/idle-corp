@@ -1,15 +1,14 @@
-/*global define, addEventListener, gameConstants*/
-define(['app', 'services/saveLoadServices', 'constants'], function (app) {
+/*global define, addEventListener*/
+define(['app', 'services/saveLoadServices', 'entities/corporation'], function (app) {
     'use strict';
-    app.controller('MainCtrl', ['$scope', '$interval', 'SaveLoadServices', function ($scope, $interval, SaveLoadServices) {
-        var elapsedTime,        //Time elasped between each tick
-            date = Date.now(),  //Time at the end of the tick
-            elapsedTicks,       //Ticks eslaped between each tick (1 if no gap)
-            i,                  //Index of the incremental loop
-            corporation = 0;    //TODO: manage real game object
-
-        //Load previous game (if it exists)
-        corporation = SaveLoadServices.load();
+    
+    app.controller('MainCtrl', ['$scope', '$interval', 'MetaConstants', 'SaveLoadServices', 'Corporation', function ($scope, $interval, MetaConstants, SaveLoadServices, Corporation) {
+        
+        var elapsedTime,                            //Time elasped between each tick
+            date = Date.now(),                      //Time at the end of the tick
+            elapsedTicks,                           //Ticks eslaped between each tick (1 if no gap)
+            i,                                      //Index of the incremental loop
+            corporation = SaveLoadServices.load();  //Load previous game (if it exists)
 
         //Save when the player close the tab/window
         addEventListener('unload', function () {
@@ -19,21 +18,29 @@ define(['app', 'services/saveLoadServices', 'constants'], function (app) {
         //Auto-saving each minute (if browser crash)
         $interval(function () {
             SaveLoadServices.save(corporation);
-        }, gameConstants.AUTOSAVE_INTERVAL);
+        }, MetaConstants.AUTOSAVE_INTERVAL);
 
         //Main game loop
         $interval(function () {
             elapsedTime = Date.now() - date;
-            elapsedTicks = (elapsedTime > gameConstants.TIME_INTERVAL) ?
-                    Math.round(elapsedTime / gameConstants.TIME_INTERVAL) : 1;
+            elapsedTicks = (elapsedTime > MetaConstants.TIME_INTERVAL) ?
+                    Math.round(elapsedTime / MetaConstants.TIME_INTERVAL) : 1;
 
             for (i = 0; i < elapsedTicks; i += 1) {
-                corporation += 1;
+                corporation.grow();
             }
-            $scope.i = corporation;
+            
+            $scope.corporation = corporation;
 
             date = Date.now();
-        }, gameConstants.TIME_INTERVAL);
+        }, MetaConstants.TIME_INTERVAL);
 
+        $scope.hire = function (jobTitle) {
+            corporation.hire(jobTitle);
+        };
+        
+        $scope.dumpCorp = function () { //NOTE: To remove. DEBUG only
+            console.log(corporation);
+        };
     }]);
 });
