@@ -3,9 +3,9 @@ define(['app', 'entities/worker'], function (app) {
     'use strict';
     app.factory('Seller', ['Worker', function (Worker) {
         
-        function Seller(title, baseCost, production) {
+        function Seller(title, baseCost, production, consumption) {
             Worker.apply(this, arguments);
-            this.consumption = 1;  //TODO: Corporation contants
+            this.consumption = consumption;
         }
         
         Seller.prototype = new Worker();

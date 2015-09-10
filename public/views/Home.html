@@ -10,7 +10,7 @@
     </ul>
 </ul>
 <div ng-repeat="job in corporation.jobs">
-    <button ng-click='hire(job.title)' class="btn btn-default">
+    <button ng-click='hire(job.title)' class="btn btn-default" ng-disabled="!hasEnoughMoney(job.title)">
         Hire {{ job.title }}
     </button>
 </div>

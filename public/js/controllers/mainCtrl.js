@@ -35,6 +35,10 @@ define(['app', 'services/saveLoadServices'], function (app) {
             date = Date.now();
         }, MetaConstants.TIME_INTERVAL);
 
+        $scope.hasEnoughMoney = function (jobTitle) {
+            return corporation.isHirable(jobTitle);
+        };
+        
         $scope.hire = function (jobTitle) {
             corporation.hire(jobTitle);
         };

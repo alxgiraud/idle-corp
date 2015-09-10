@@ -25,7 +25,7 @@ define(['app', 'entities/corporation'], function (app) {
                 return;
             },
             load: function () {
-                localStorage.clear(); //FIXME: DEBUG ONLY !
+                //localStorage.clear(); //FIXME: DEBUG ONLY !
                 var save = angular.fromJson(localStorage.getItem('corpSaved')), //Saved game
                     corporation = new Corporation(),                            //Main game object
                     elapsedTime;                                                //Time eslaped since the last save

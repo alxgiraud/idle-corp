@@ -6,3 +6,7 @@
 .x-ng-cloak {
     display: none !important;
 }
+
+.btn:focus,.btn:active {
+   outline: none !important;
+}

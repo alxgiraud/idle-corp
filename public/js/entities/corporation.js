@@ -1,11 +1,11 @@
 /*global define, angular*/
 define(['app', 'services/corporationServices'], function (app) {
     'use strict';
-    app.factory('Corporation', ['CorporationServices', function (CorporationServices) {
+    app.factory('Corporation', ['CorporationServices', 'CorporationConstants',  function (CorporationServices, CorporationConstants) {
 
         function Corporation() {
-            this.money = 2000;      //TODO: Corporation Constants
-            this.stock = 100;       //TODO: Corporation Constants
+            this.money = CorporationConstants.MONEY_INIT;
+            this.stock = 0;
             this.jobs = CorporationServices.initializeJobs();
         }
 
@@ -27,6 +27,8 @@ define(['app', 'services/corporationServices'], function (app) {
                 salesActivity = CorporationServices.getSalesActivity(this.jobs, this.stock);
                 this.stock -= salesActivity.productSold;
                 this.money += salesActivity.profit;
+                
+                this.jobs = CorporationServices.hireByRecruiter(this.jobs);
             },
             hire: function (title) {
                 var job = CorporationServices.getJobByTitle(this.jobs, title),
@@ -36,7 +38,12 @@ define(['app', 'services/corporationServices'], function (app) {
                     this.money -= cost;
                     job.hire();
                 }
-                //TODO: Notify: Not enough money !
+                return;
+            },
+            isHirable: function (title) {
+                var job = CorporationServices.getJobByTitle(this.jobs, title),
+                    cost = job.getCost();
+                return (this.money > cost) ? true : false;
             }
         };
 
