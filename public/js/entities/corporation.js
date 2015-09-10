@@ -2,13 +2,13 @@
 define(['app', 'services/corporationServices'], function (app) {
     'use strict';
     app.factory('Corporation', ['CorporationServices', function (CorporationServices) {
-        
+
         function Corporation() {
-            this.money = 2000; //TODO: Corporation Constants
-            this.stock = 100;  //TODO: Corporation Constants
+            this.money = 2000;      //TODO: Corporation Constants
+            this.stock = 100;       //TODO: Corporation Constants
             this.jobs = CorporationServices.initializeJobs();
         }
-                
+
         Corporation.prototype = {
             setCorporation: function (corporation) {
                 //TODO: Check Model from save
@@ -18,25 +18,28 @@ define(['app', 'services/corporationServices'], function (app) {
                 return this;
             },
             grow: function () {
-                //TODO: Business logic
-                this.money += 1;
+                var salesActivity = {
+                    productSold: 0,
+                    profit: 0
+                };
+                this.stock += CorporationServices.getWorkerProduction(this.jobs);
+
+                salesActivity = CorporationServices.getSalesActivity(this.jobs, this.stock);
+                this.stock -= salesActivity.productSold;
+                this.money += salesActivity.profit;
             },
             hire: function (title) {
-                var i, cost;
-                for (i = 0; i < this.jobs.length; i += 1) {
-                    if (this.jobs[i].title === title) {
-                        cost = this.jobs[i].getCost();
-                        if (this.money > cost) {
-                            this.money -= cost;
-                            this.jobs[i].hire();
-                        }
-                        //TODO: Notify: Not enough money !
-                        return;
-                    }
+                var job = CorporationServices.getJobByTitle(this.jobs, title),
+                    cost = job.getCost();
+                
+                if (this.money > cost) {
+                    this.money -= cost;
+                    job.hire();
                 }
+                //TODO: Notify: Not enough money !
             }
         };
-        
+
         return Corporation;
     }]);
 });

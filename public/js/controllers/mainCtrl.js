@@ -1,8 +1,8 @@
 /*global define, addEventListener*/
-define(['app', 'services/saveLoadServices', 'entities/corporation'], function (app) {
+define(['app', 'services/saveLoadServices'], function (app) {
     'use strict';
     
-    app.controller('MainCtrl', ['$scope', '$interval', 'MetaConstants', 'SaveLoadServices', 'Corporation', function ($scope, $interval, MetaConstants, SaveLoadServices, Corporation) {
+    app.controller('MainCtrl', ['$scope', '$interval', 'MetaConstants', 'SaveLoadServices', function ($scope, $interval, MetaConstants, SaveLoadServices) {
         
         var elapsedTime,                            //Time elasped between each tick
             date = Date.now(),                      //Time at the end of the tick

@@ -5,7 +5,7 @@ define(['angularAMD', 'angular-route'], function (angularAMD) {
     
     app.constant('MetaConstants', {
         TIME_INTERVAL: 100,
-        AUTOSAVE_INTERVAL: 5000
+        AUTOSAVE_INTERVAL: 60000
     });
     
     app.config(function ($routeProvider) {

@@ -1,11 +1,13 @@
 <ul>
-    <li>{{ corporation.money }} </li>
-    <li>{{ corporation.stock }}</li>
+    <li>Money: {{ corporation.money | number:0 }} </li>
+    <li>Stock: {{ corporation.stock | number:0 }}</li>
 </ul>
 <ul ng-repeat="job in corporation.jobs">
     <li>{{ job.title }}</li>
-    <li>Quantity: {{ job.quantity }}</li>
-    <li>Cost: {{ job.getCost() }}</li>
+    <ul>
+        <li>Quantity: {{ job.quantity }}</li>
+        <li>Cost: {{ job.getCost() | number:0 }}</li>
+    </ul>
 </ul>
 <div ng-repeat="job in corporation.jobs">
     <button ng-click='hire(job.title)' class="btn btn-default">
