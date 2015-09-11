@@ -46,5 +46,7 @@ define(['app', 'services/saveLoadServices'], function (app) {
         $scope.dumpCorp = function () { //NOTE: To remove. DEBUG only
             console.log(corporation);
         };
+		
+		$scope.test = "<p>Lorem ipsum <strong>dolor sit amet, </strong>consectetur adipiscing <em>elit. Pellentesque cursus</em></p>"; //FIXME: test typewrite directive
     }]);
 });

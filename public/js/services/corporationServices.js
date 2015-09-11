@@ -49,7 +49,8 @@ define(['app', 'entities/worker', 'entities/seller', 'entities/recruiter'], func
 												job.targetedJobs, job.performance);
                         break;
                     }
-					corporationJob.setQuantity(job.quantity);
+					corporationJob.quantity = job.quantity;
+					corporationJob.manualHiring = job.manualHiring;
                     corporationJobs.push(corporationJob);
                 }
                 return corporationJobs;

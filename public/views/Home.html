@@ -1,20 +1,22 @@
+ <type-writer type-speed="50" type-content="{{ test }}"></type-writer>
+
 <ul>
-    <li>Money: {{ corporation.money | number:0 }} </li>
-    <li>Stock: {{ corporation.stock | number:0 }}</li>
+	<li>Money: {{ corporation.money | number:0 }} </li>
+	<li>Stock: {{ corporation.stock | number:0 }}</li>
 </ul>
 <ul ng-repeat="job in corporation.jobs">
-    <li>{{ job.title }}</li>
-    <ul>
-        <li>Quantity: {{ job.quantity }}</li>
-        <li>Cost: {{ job.getCost() | number:0 }}</li>
-    </ul>
+	<li>{{ job.title }}</li>
+	<ul>
+		<li>Quantity: {{ job.quantity }}</li>
+		<li>Cost: {{ job.getCost() | number:0 }}</li>
+	</ul>
 </ul>
 <div ng-repeat="job in corporation.jobs">
-    <button ng-click='hire(job.title)' class="btn btn-default" ng-disabled="!hasEnoughMoney(job.title)">
-        Hire {{ job.title }}
-    </button>
+	<button ng-click='hire(job.title)' class="btn btn-default" ng-disabled="!hasEnoughMoney(job.title)">
+		Hire {{ job.title }}
+	</button>
 </div>
 <br />
 <button ng-click='dumpCorp()' class="btn btn-default">
-    Dump console
+	Dump console
 </button>

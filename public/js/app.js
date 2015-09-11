@@ -1,5 +1,5 @@
 /*global define, angular*/
-define(['angularAMD', 'angular-route'], function (angularAMD) {
+define(['angularAMD', 'angular-route', 'directives/typeWriter'], function (angularAMD) {
     'use strict';
     var app = angular.module('idleCorp', ['ngRoute']);
     

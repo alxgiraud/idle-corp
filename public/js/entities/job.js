@@ -19,10 +19,6 @@ define(['app'], function (app) {
             getCost: function () {
                 return this.baseCost * Math.pow(1.07, this.manualHiring);
             },
-            setQuantity: function (quantity) {
-                this.quantity = quantity;
-                return;
-            },
             getQuantity: function () {
                 return Math.floor(this.quantity);
             }
