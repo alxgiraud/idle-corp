@@ -1,22 +1,66 @@
- <type-writer type-speed="50" type-content="{{ test }}"></type-writer>
-
-<ul>
-	<li>Money: {{ corporation.money | number:0 }} </li>
-	<li>Stock: {{ corporation.stock | number:0 }}</li>
-</ul>
-<ul ng-repeat="job in corporation.jobs">
-	<li>{{ job.title }}</li>
-	<ul>
-		<li>Quantity: {{ job.quantity }}</li>
-		<li>Cost: {{ job.getCost() | number:0 }}</li>
-	</ul>
-</ul>
-<div ng-repeat="job in corporation.jobs">
-	<button ng-click='hire(job.title)' class="btn btn-default" ng-disabled="!hasEnoughMoney(job.title)">
-		Hire {{ job.title }}
-	</button>
+<div class="container home-container">
+	<div class="row row-eq-height">
+		<div class="col-md-8">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<h5><i class="fa fa-money"></i> Money</h5>
+							<h1 class="text-right">$ {{ corporation.money|bigNumber }}</h1>
+							<div class="text-right">
+								Profit per second:
+								<span ng-class="(corporation.profit < 0) ? 'text-danger' : 'text-success'">
+							{{ corporation.profit * 10 | bigNumber }} 
+							<i ng-class="(corporation.profit > 0) ? 'fa fa-level-up' : ''"></i>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<h5><i class="fa fa-cubes"></i> Stock</h5>
+							<h1 class="text-right">{{ corporation.stock | number:0 }}</h1>
+							<div class="text-right">
+								Growth per second:
+								<span ng-class="(corporation.stockGrowth < 0) ? 'text-danger' : 'text-success'">
+									{{ corporation.stockGrowth | number:2 }}
+									<i ng-class="(corporation.stockGrowth < 0) ? 'fa fa-level-down' : (corporation.stockGrowth > 0) ? 'fa fa-level-up' : ''"></i>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6" ng-repeat="job in corporation.jobs">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<h5>{{ job.title }}</h5>
+							<ul>
+								<li>Quantity: {{ job.quantity | number:0 }}</li>
+								<li>Cost: {{ job.getCost() | number:0 }}</li>
+							</ul>
+							<button ng-click='hire(job.title)' class="btn btn-default" ng-disabled="!hasEnoughMoney(job.title)">
+								Hire {{ job.title }}
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4" id="chatbox-container">
+			<div class="panel panel-default" id="chatbox-panel">
+				<div class="panel-body">
+					<div class="well">
+						<type-writer type-speed="20" type-content="{{ test }}"></type-writer>
+					</div>
+					<button ng-click='dumpCorp()' class="btn btn-default">
+						Dump console
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-<br />
-<button ng-click='dumpCorp()' class="btn btn-default">
-	Dump console
-</button>

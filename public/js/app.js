@@ -1,5 +1,5 @@
 /*global define, angular*/
-define(['angularAMD', 'angular-route', 'directives/typeWriter'], function (angularAMD) {
+define(['angularAMD', 'angular-route', 'directives/typeWriter', 'filters/bigNumber'], function (angularAMD) {
     'use strict';
     var app = angular.module('idleCorp', ['ngRoute']);
     
@@ -9,7 +9,7 @@ define(['angularAMD', 'angular-route', 'directives/typeWriter'], function (angul
     });
     
     app.constant('CorporationConstants', {
-        MONEY_INIT: 1000,
+        MONEY_INIT: 100000,
         
         WORKER_TITLE: 'Worker',
         WORKER_BASECOST: 100,
