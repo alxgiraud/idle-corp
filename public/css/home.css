@@ -1,0 +1,22 @@
+.home-container {
+	margin-top: 5%;
+}
+.panel h5 {
+	margin-top: 0;
+}
+
+.panel h1 {
+	
+}
+
+/*FIXME: debug */
+#chatbox-container {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+}
+#chatbox-panel {
+	width: 100%;
+}
+/* */
