@@ -1,17 +1,17 @@
 <div class="container home-container">
-	<div class="row row-eq-height">
+	<div class="row">
 		<div class="col-md-8">
 			<div class="row">
 				<div class="col-md-6">
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<h5><i class="fa fa-money"></i> Money</h5>
-							<h1 class="text-right">$ {{ corporation.money|bigNumber }}</h1>
+							<h1 class="text-right">$ {{ corporation.money | bigNumber }}</h1>
 							<div class="text-right">
 								Profit per second:
 								<span ng-class="(corporation.profit < 0) ? 'text-danger' : 'text-success'">
-							{{ corporation.profit * 10 | bigNumber }} 
-							<i ng-class="(corporation.profit > 0) ? 'fa fa-level-up' : ''"></i>
+									{{ corporation.profit * 10 | bigNumber }} <!-- TODO: Define profit/growth displayed (*1, *10, *100 ?) -->
+									<i ng-class="(corporation.profit > 0) ? 'fa fa-level-up' : ''"></i>
 								</span>
 							</div>
 						</div>
@@ -25,7 +25,7 @@
 							<div class="text-right">
 								Growth per second:
 								<span ng-class="(corporation.stockGrowth < 0) ? 'text-danger' : 'text-success'">
-									{{ corporation.stockGrowth | number:2 }}
+									{{ corporation.stockGrowth * 10 | number:2 }}
 									<i ng-class="(corporation.stockGrowth < 0) ? 'fa fa-level-down' : (corporation.stockGrowth > 0) ? 'fa fa-level-up' : ''"></i>
 								</span>
 							</div>
@@ -35,22 +35,42 @@
 			</div>
 			<div class="row">
 				<div class="col-md-6" ng-repeat="job in corporation.jobs">
-					<div class="panel panel-default">
+					<div class="panel panel-default job-panel">
 						<div class="panel-body">
-							<h5>{{ job.title }}</h5>
-							<ul>
-								<li>Quantity: {{ job.quantity | number:0 }}</li>
-								<li>Cost: {{ job.getCost() | number:0 }}</li>
-							</ul>
-							<button ng-click='hire(job.title)' class="btn btn-default" ng-disabled="!hasEnoughMoney(job.title)">
-								Hire {{ job.title }}
-							</button>
+							<h5><i class="fa fa-user"></i>{{ job.title }}</h5>
+							<div class="job-table">
+								<table class="table">
+									<tr>
+										<td>Quantity</td>
+										<td class="text-right">{{ job.quantity | number:0 }}</td>
+									</tr>
+									<tr>
+										<td class="text-left">Cost</td>
+										<td ng-class="(job.getCost() > corporation.money) ? 'text-danger' : ''" class="text-right">
+											$ {{ job.getCost() | number:0 }}
+										</td>
+									</tr>
+									<tr>
+										<td class="text-left">Profit</td>
+										<td class="text-right">1234</td>
+									</tr>
+									<tr ng-if="job.title == 'Seller'">
+										<td class="text-left">Stock consumption</td>
+										<td class="text-right">TODO</td>
+									</tr>
+								</table>
+							</div>
+							<div class="text-center">
+								<button ng-click='hire(job.title)' class="btn btn-default" ng-disabled="!hasEnoughMoney(job.title)">
+									Hire {{ job.title }}
+								</button>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="col-md-4" id="chatbox-container">
+		<div class="col-md-4">
 			<div class="panel panel-default" id="chatbox-panel">
 				<div class="panel-body">
 					<div class="well">

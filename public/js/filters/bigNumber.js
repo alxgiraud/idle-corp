@@ -2,28 +2,35 @@
 define(['angularAMD'], function (angularAMD) {
 	'use strict';
 	angularAMD.filter('bigNumber', function () {
+
+		function formalizeNumber(input, decimal, pow, abbrv) {
+			if (typeof pow === 'undefined' || pow === null) {
+				return input.toFixed(decimal).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+			}
+			return ((input / Math.pow(10, pow)).toFixed(decimal) + abbrv).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+		}
+
 		return function (number) {
 			var abs = 0;
 			if (typeof number === 'undefined' || number === null) {
-				return null;
+				return 0;
 			}
 
 			abs = Math.abs(number);
 
-			//TODO: Cleaning: code function like GetFormatedNumber(input, pow, decimals, abbreviation)?
 			if (abs >= Math.pow(10, 15)) {
-				number = (number / Math.pow(10, 15)).toFixed(2) + 'Q';
+				number = formalizeNumber(number, 2, 15, 'Q');
 			} else if (abs >= Math.pow(10, 12)) {
-				number = (number / Math.pow(10, 12)).toFixed(2) + 'T';
+				number = formalizeNumber(number, 2, 12, 'T');
 			} else if (abs >= Math.pow(10, 9)) {
-				number = (number / Math.pow(10, 9)).toFixed(2) + 'B';
+				number = formalizeNumber(number, 2, 9, 'B');
 			} else if (abs >= Math.pow(10, 6)) {
-				number = (number / Math.pow(10, 6)).toFixed(2) + 'M';
+				number = formalizeNumber(number, 2, 6, 'M');
 			} else {
-				return number.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+				number = formalizeNumber(number, 0);
 			}
 
-			return number.replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+			return number;
 		};
 	});
 });

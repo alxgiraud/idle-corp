@@ -9,7 +9,7 @@ define(['angularAMD', 'angular-route', 'directives/typeWriter', 'filters/bigNumb
     });
     
     app.constant('CorporationConstants', {
-        MONEY_INIT: 100000,
+        MONEY_INIT: 1000,
         
         WORKER_TITLE: 'Worker',
         WORKER_BASECOST: 100,

@@ -26,11 +26,14 @@ define(['app', 'services/corporationServices'], function (app) {
 						profit: 0
 					};
 
+
 				productProduced = CorporationServices.getWorkerProduction(this.jobs);
+				this.stock += productProduced;
+
 				salesActivity = CorporationServices.getSalesActivity(this.jobs, this.stock);
+				this.stock -= salesActivity.productSold;
 
 				this.stockGrowth = productProduced - salesActivity.productSold;
-				this.stock += this.stockGrowth; //FIXME: Bug  decimlas, stock stuck with values but growth = 0
 
 				this.profit = salesActivity.profit;
 				this.money += this.profit;

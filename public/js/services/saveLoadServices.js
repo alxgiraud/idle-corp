@@ -32,7 +32,7 @@ define(['app', 'cryptoJS', 'entities/corporation'], function (app) {
                 return;
             },
             load: function () {
-                //localStorage.clear(); //FIXME: DEBUG ONLY !		
+                localStorage.clear(); //NOTE: Remove the save: DEBUG ONLY !		
                 var save = localStorage.getItem('corpSaved'),					//Saved game
                     corporation = new Corporation(),                            //Main game object
                     elapsedTime;                                                //Time eslaped since the last save
